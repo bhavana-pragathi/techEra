@@ -1,9 +1,11 @@
 import Header from '../Header'
-import {NotFoundDiv, NotFoundImage} from './styledComponents'
+import {NotFoundDiv, NotFoundImage, LinkItem} from './styledComponents'
 
 const NotFound = () => (
   <>
-    <Header />
+    <LinkItem to="/">
+      <Header />
+    </LinkItem>
     <NotFoundDiv>
       <NotFoundImage
         src="https://assets.ccbp.in/frontend/react-js/tech-era/not-found-img.png "

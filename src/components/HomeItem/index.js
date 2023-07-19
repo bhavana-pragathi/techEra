@@ -4,7 +4,7 @@ const CourseItem = props => {
   const {courseDetails} = props
   const {id, name, logoUrl} = courseDetails
   return (
-    <LinkItem to={`/course/${id}`}>
+    <LinkItem to={`/courses/${id}`}>
       <Li>
         <Image src={logoUrl} alt={name} />
         <Name>{name}</Name>

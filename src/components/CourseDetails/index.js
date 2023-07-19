@@ -1,8 +1,15 @@
 import {Component} from 'react'
 import Loader from 'react-loader-spinner'
-import CourseItem from '../CourseItem'
 import Header from '../Header'
-import {MainDiv, LoaderContainer} from './styledComponents'
+import {
+  MainDiv,
+  LoaderContainer,
+  CourseDiv,
+  CourseImage,
+  CourseNameDesc,
+  CourseName,
+  CourseDesc,
+} from './styledComponents'
 
 const apiConstants = {
   initial: 'INITIAL',
@@ -28,12 +35,12 @@ class CourseDetails extends Component {
     const response = await fetch(apiUrl, options)
     if (response.ok) {
       const fetchedData = await response.json()
-      const updatedData = fetchedData.course_details.map(eachItem => ({
-        id: eachItem.id,
-        name: eachItem.name,
-        imageUrl: eachItem.image_url,
-        description: eachItem.description,
-      }))
+      const updatedData = {
+        id: fetchedData.course_details.id,
+        name: fetchedData.course_details.name,
+        imageUrl: fetchedData.course_details.image_url,
+        description: fetchedData.course_details.description,
+      }
       this.setState({courseItem: updatedData, apiStatus: apiConstants.success})
     } else {
       this.setState({apiStatus: apiConstants.failure})
@@ -43,11 +50,13 @@ class CourseDetails extends Component {
   renderSuccessView = () => {
     const {courseItem} = this.state
     return (
-      <>
-        {courseItem.map(eachItem => (
-          <CourseItem key={eachItem.id} courseDetails={eachItem} />
-        ))}
-      </>
+      <CourseDiv>
+        <CourseImage src={courseItem.imageUrl} alt={courseItem.name} />
+        <CourseNameDesc>
+          <CourseName>{courseItem.name}</CourseName>
+          <CourseDesc>{courseItem.description}</CourseDesc>
+        </CourseNameDesc>
+      </CourseDiv>
     )
   }
 
