@@ -9,6 +9,13 @@ import {
   CourseNameDesc,
   CourseName,
   CourseDesc,
+  FailureImage,
+  FailureHead,
+  FailurePara,
+  LinkItem,
+  RetryButton,
+  BottomDiv,
+  FailureDiv,
 } from './styledComponents'
 
 const apiConstants = {
@@ -19,42 +26,45 @@ const apiConstants = {
 }
 
 class CourseDetails extends Component {
-  state = {courseItem: [], apiStatus: apiConstants.initial}
+  state = {course: {}, apiStatus: apiConstants.initial}
 
   componentDidMount() {
     this.getItemData()
   }
 
   getItemData = async () => {
+    this.setState({apiStatus: apiConstants.inProgress})
+
     const {match} = this.props
     const {params} = match
     const {id} = params
-    this.setState({apiStatus: apiConstants.inProgress})
-    const apiUrl = `https://apis.ccbp.in/te/courses/${id}`
-    const options = {method: 'GET'}
-    const response = await fetch(apiUrl, options)
-    if (response.ok) {
-      const fetchedData = await response.json()
-      const updatedData = {
-        id: fetchedData.course_details.id,
-        name: fetchedData.course_details.name,
-        imageUrl: fetchedData.course_details.image_url,
-        description: fetchedData.course_details.description,
+    const url = `https://apis.ccbp.in/te/courses/${id}`
+    const options = {
+      method: 'Get',
+    }
+    const res = await fetch(url, options)
+    if (res.ok === true) {
+      const dat = await res.json()
+      const updateCourse = {
+        id: dat.course_details.id,
+        name: dat.course_details.name,
+        imageUrl: dat.course_details.image_url,
+        description: dat.course_details.description,
       }
-      this.setState({courseItem: updatedData, apiStatus: apiConstants.success})
+      this.setState({course: updateCourse, apiStatus: apiConstants.success})
     } else {
       this.setState({apiStatus: apiConstants.failure})
     }
   }
 
   renderSuccessView = () => {
-    const {courseItem} = this.state
+    const {course} = this.state
     return (
       <CourseDiv>
-        <CourseImage src={courseItem.imageUrl} alt={courseItem.name} />
+        <CourseImage src={course.imageUrl} alt={course.name} />
         <CourseNameDesc>
-          <CourseName>{courseItem.name}</CourseName>
-          <CourseDesc>{courseItem.description}</CourseDesc>
+          <CourseName>{course.name}</CourseName>
+          <CourseDesc>{course.description}</CourseDesc>
         </CourseNameDesc>
       </CourseDiv>
     )
@@ -62,11 +72,27 @@ class CourseDetails extends Component {
 
   renderLoadingView = () => (
     <LoaderContainer data-testid="loader">
-      <Loader type="TailSpin" color="#00BFFF" height={50} width={50} />
+      <Loader type="ThreeDots" color="#4656a1" height={50} width={50} />
     </LoaderContainer>
   )
 
-  renderFailureView = () => {}
+  onRetry = () => {
+    this.getItemData()
+  }
+
+  renderFailureView = () => (
+    <FailureDiv>
+      <FailureImage
+        src="https://assets.ccbp.in/frontend/react-js/tech-era/failure-img.png"
+        alt="failure view"
+      />
+      <FailureHead>Oops! Something Went Wrong</FailureHead>
+      <FailurePara>
+        We cannot seem to find the page you are looking for.
+      </FailurePara>
+      <RetryButton onClick={this.onRetry}>Retry</RetryButton>
+    </FailureDiv>
+  )
 
   renderCourseItemPage = () => {
     const {apiStatus} = this.state
@@ -85,8 +111,10 @@ class CourseDetails extends Component {
   render() {
     return (
       <MainDiv>
-        <Header />
-        {this.renderCourseItemPage}
+        <LinkItem to="/">
+          <Header />
+        </LinkItem>
+        <BottomDiv>{this.renderCourseItemPage()}</BottomDiv>
       </MainDiv>
     )
   }

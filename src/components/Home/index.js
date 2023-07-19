@@ -61,9 +61,13 @@ class Home extends Component {
 
   renderLoadingView = () => (
     <LoaderContainer data-testid="loader">
-      <Loader type="TailSpin" color="#00BFFF" height={50} width={50} />
+      <Loader type="ThreeDots" color="#4656a1" height={50} width={50} />
     </LoaderContainer>
   )
+
+  onRetry = () => {
+    this.getCourseData()
+  }
 
   renderFailureView = () => (
     <>
@@ -75,7 +79,7 @@ class Home extends Component {
       <FailurePara>
         We cannot seem to find the page you are looking for.
       </FailurePara>
-      <RetryButton>Retry</RetryButton>
+      <RetryButton onClick={this.onRetry}>Retry</RetryButton>
     </>
   )
 

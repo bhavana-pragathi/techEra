@@ -1,7 +1,9 @@
 import {Link} from 'react-router-dom'
 import styled from 'styled-components'
 
-export const MainDiv = styled.div``
+export const MainDiv = styled.div`
+  font-family: 'Roboto';
+`
 export const Ul = styled.ul`
   display: flex;
   list-style-type: none;
@@ -14,7 +16,7 @@ export const LinkItem = styled(Link)`
 export const LoaderContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin: 200px;
+  margin: 250px;
 `
 export const FailureImage = styled.img``
 export const FailureHead = styled.h1``
