@@ -1,0 +1,32 @@
+.main-div {
+  font-family: 'Roboto';
+}
+.link-item {
+  text-decoration: none;
+}
+.not-found-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.not-found-img {
+  height: 400px;
+}
+.not-found-head {
+  color: #1e293b;
+  font-size: 30px;
+}
+.not-found-para {
+  color: #475569;
+}
+.website-logo {
+  height: 36px;
+  margin-left: 50px;
+}
+.nav {
+  background-color: #f1f5f9;
+  padding: 10px;
+}

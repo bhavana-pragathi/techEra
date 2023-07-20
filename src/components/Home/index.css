@@ -1,0 +1,54 @@
+.main-div {
+  font-family: 'Roboto';
+}
+.link-item {
+  text-decoration: none;
+}
+ul {
+  display: flex;
+  list-style-type: none;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.loader-div {
+  display: flex;
+  justify-content: center;
+  margin: 250px;
+}
+.courses-head {
+  margin-left: 50px;
+}
+.failure-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.failure-image {
+  height: 300px;
+  margin-bottom: 10px;
+}
+.failure-head {
+  color: #475569;
+  font-weight: bold;
+}
+.failure-para {
+  color: #64748b;
+}
+.retry-button {
+  background-color: #4656a1;
+  border: none;
+  border-radius: 3px;
+  height: 30px;
+  width: 60px;
+  color: #ffffff;
+  font-size: 12px;
+}
+.website-logo {
+  height: 36px;
+  margin-left: 50px;
+}
+.nav {
+  background-color: #f1f5f9;
+  padding: 10px;
+}

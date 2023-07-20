@@ -1,17 +1,8 @@
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
 import Loader from 'react-loader-spinner'
-import Header from '../Header'
 import HomeItem from '../HomeItem'
-import {
-  MainDiv,
-  Ul,
-  LoaderContainer,
-  FailureImage,
-  FailureHead,
-  FailurePara,
-  RetryButton,
-  CoursesHead,
-} from './styledComponents'
+import './index.css'
 
 const apiConstants = {
   initial: 'INITIAL',
@@ -49,20 +40,20 @@ class Home extends Component {
     const {courseList} = this.state
     return (
       <>
-        <CoursesHead>Courses</CoursesHead>
-        <Ul>
+        <h1 className="courses-head">Courses</h1>
+        <ul>
           {courseList.map(eachItem => (
             <HomeItem key={eachItem.id} courseDetails={eachItem} />
           ))}
-        </Ul>
+        </ul>
       </>
     )
   }
 
   renderLoadingView = () => (
-    <LoaderContainer data-testid="loader">
+    <div className="loader-div" data-testid="loader">
       <Loader type="ThreeDots" color="#4656a1" height={50} width={50} />
-    </LoaderContainer>
+    </div>
   )
 
   onRetry = () => {
@@ -71,15 +62,18 @@ class Home extends Component {
 
   renderFailureView = () => (
     <>
-      <FailureImage
+      <img
+        className="failure-image"
         src="https://assets.ccbp.in/frontend/react-js/tech-era/failure-img.png"
         alt="failure view"
       />
-      <FailureHead>Oops! Something Went Wrong</FailureHead>
-      <FailurePara>
+      <h1 className="failure-head">Oops! Something Went Wrong</h1>
+      <p className="failure-para">
         We cannot seem to find the page you are looking for.
-      </FailurePara>
-      <RetryButton onClick={this.onRetry}>Retry</RetryButton>
+      </p>
+      <button className="retry-button" type="button" onClick={this.onRetry}>
+        Retry
+      </button>
     </>
   )
 
@@ -99,10 +93,18 @@ class Home extends Component {
 
   render() {
     return (
-      <MainDiv>
-        <Header />
+      <div className="main-div">
+        <Link className="link-item" to="/">
+          <nav className="nav">
+            <img
+              className="website-logo"
+              src="https://assets.ccbp.in/frontend/react-js/tech-era/website-logo-img.png"
+              alt="website logo"
+            />
+          </nav>
+        </Link>
         {this.renderCoursePage()}
-      </MainDiv>
+      </div>
     )
   }
 }

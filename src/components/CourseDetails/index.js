@@ -1,22 +1,7 @@
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
 import Loader from 'react-loader-spinner'
-import Header from '../Header'
-import {
-  MainDiv,
-  LoaderContainer,
-  CourseDiv,
-  CourseImage,
-  CourseNameDesc,
-  CourseName,
-  CourseDesc,
-  FailureImage,
-  FailureHead,
-  FailurePara,
-  LinkItem,
-  RetryButton,
-  BottomDiv,
-  FailureDiv,
-} from './styledComponents'
+import './index.css'
 
 const apiConstants = {
   initial: 'INITIAL',
@@ -60,20 +45,20 @@ class CourseDetails extends Component {
   renderSuccessView = () => {
     const {course} = this.state
     return (
-      <CourseDiv>
-        <CourseImage src={course.imageUrl} alt={course.name} />
-        <CourseNameDesc>
-          <CourseName>{course.name}</CourseName>
-          <CourseDesc>{course.description}</CourseDesc>
-        </CourseNameDesc>
-      </CourseDiv>
+      <div className="course-div">
+        <img className="course-image" src={course.imageUrl} alt={course.name} />
+        <div className="course-name-desc">
+          <h1 className="course-name">{course.name}</h1>
+          <p className="course-desc">{course.description}</p>
+        </div>
+      </div>
     )
   }
 
   renderLoadingView = () => (
-    <LoaderContainer data-testid="loader">
+    <div className="loader-div" data-testid="loader">
       <Loader type="ThreeDots" color="#4656a1" height={50} width={50} />
-    </LoaderContainer>
+    </div>
   )
 
   onRetry = () => {
@@ -81,17 +66,20 @@ class CourseDetails extends Component {
   }
 
   renderFailureView = () => (
-    <FailureDiv>
-      <FailureImage
+    <div className="failure-div">
+      <img
+        className="failure-image"
         src="https://assets.ccbp.in/frontend/react-js/tech-era/failure-img.png"
         alt="failure view"
       />
-      <FailureHead>Oops! Something Went Wrong</FailureHead>
-      <FailurePara>
+      <h1 className="failure-head">Oops! Something Went Wrong</h1>
+      <p className="failure-para">
         We cannot seem to find the page you are looking for.
-      </FailurePara>
-      <RetryButton onClick={this.onRetry}>Retry</RetryButton>
-    </FailureDiv>
+      </p>
+      <button className="retry-button" type="submit" onClick={this.onRetry}>
+        Retry
+      </button>
+    </div>
   )
 
   renderCourseItemPage = () => {
@@ -110,12 +98,18 @@ class CourseDetails extends Component {
 
   render() {
     return (
-      <MainDiv>
-        <LinkItem to="/">
-          <Header />
-        </LinkItem>
-        <BottomDiv>{this.renderCourseItemPage()}</BottomDiv>
-      </MainDiv>
+      <div className="main-div">
+        <Link className="link-item" to="/">
+          <nav className="nav">
+            <img
+              className="website-logo"
+              src="https://assets.ccbp.in/frontend/react-js/tech-era/website-logo-img.png"
+              alt="website logo"
+            />
+          </nav>
+        </Link>
+        <div className="bottom-div">{this.renderCourseItemPage()}</div>
+      </div>
     )
   }
 }
